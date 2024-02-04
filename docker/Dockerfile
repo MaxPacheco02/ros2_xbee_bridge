@@ -28,7 +28,16 @@ WORKDIR /root/ws/src
 
 RUN --mount=type=ssh git clone git@github.com:mkrizmancic/ros2_xbee_bridge.git
 
+RUN apt-get install -y \
+    python3-colcon-common-extensions \
+    build-essential \
+    python3-pip
+
+RUN python3 -m pip install pyyaml roslibpy digi-xbee
+
 WORKDIR /root/ws
+
+RUN bash -c "source /opt/ros/$ROS_DISTRO/setup.bash; colcon build"
 
 # # Add separate aliases for noetic and ROS2_DISTRO
 RUN echo "alias source_ros2='source /opt/ros/$ROS_DISTRO/setup.bash'" >> /root/.bashrc
