@@ -252,3 +252,5 @@ CATKIN_IGNORE
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,visualstudiocode,ros
+
+ruff.toml

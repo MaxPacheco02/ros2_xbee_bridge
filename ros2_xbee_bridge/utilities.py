@@ -13,6 +13,6 @@ def dict_to_msg(msg_type, msg_dict):
 
 
 def import_msg(msg_type):
-    dir, msg = msg_type.split('/')
-    pkg = __import__(f'{dir}.msg')
-    return getattr(getattr(pkg, 'msg'), msg)
+    dir, msg = msg_type.split("/")
+    pkg = __import__(f"{dir}.msg")
+    return getattr(getattr(pkg, "msg"), msg)

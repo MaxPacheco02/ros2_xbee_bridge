@@ -2,43 +2,35 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, ExecuteProcess
-from launch.substitutions import LaunchConfiguration, EnvironmentVariable
-from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
-    main_config_path = os.path.join(
-        get_package_share_directory('ros2_xbee_bridge'), 
-        'config'
-        )
-    
-    params = os.path.join(main_config_path, 'ros_params.yaml')
+    main_config_path = os.path.join(get_package_share_directory("ros2_xbee_bridge"), "config")
 
-    ns = LaunchConfiguration('namespace')
-    ns_arg = DeclareLaunchArgument('namespace') 
-    
-    dev = LaunchConfiguration('dev')
-    dev_arg = DeclareLaunchArgument('dev', default_value='/dev/ttyXBEE')
-    
+    params = os.path.join(main_config_path, "ros_params.yaml")
+
+    ns = LaunchConfiguration("namespace")
+    ns_arg = DeclareLaunchArgument("namespace")
+
+    dev = LaunchConfiguration("dev")
+    dev_arg = DeclareLaunchArgument("dev", default_value="/dev/ttyXBEE")
+
     communication = [
         Node(
-            package='ros2_xbee_bridge',
+            package="ros2_xbee_bridge",
             namespace=ns,
-            executable='xbee_bridge.py',
-            name='xbee_bridge',
-            emulate_tty = True,
+            executable="xbee_bridge.py",
+            name="xbee_bridge",
+            emulate_tty=True,
             output={
-                'stdout': 'screen',
-                'stderr': 'screen',
+                "stdout": "screen",
+                "stderr": "screen",
             },
-            parameters=[
-                {'config_dir': main_config_path},
-                {'dev': dev},
-                params
-            ],
+            parameters=[{"config_dir": main_config_path}, {"dev": dev}, params],
             respawn=True,
-            respawn_delay=5.0
+            respawn_delay=5.0,
         ),
     ]
 
