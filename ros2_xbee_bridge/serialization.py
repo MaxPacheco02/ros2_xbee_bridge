@@ -22,10 +22,9 @@ def serialize_message(msg, use_ros=False):
 
     if isinstance(msg, String):
         return bytes(msg.data, "ascii")
-    elif isinstance(msg, Bool):
+    if isinstance(msg, Bool):
         return bytes([msg.data])
-    else:
-        return rclpy.serialization.serialize_message(msg)
+    return rclpy.serialization.serialize_message(msg)
 
 
 def deserialize_message(data, msg_type, use_ros=False):
@@ -44,13 +43,11 @@ def deserialize_message(data, msg_type, use_ros=False):
     Returns:
         The deserialized ROS message.
     """
-
     if use_ros:
         return rclpy.serialization.deserialize_message(data, msg_type)
 
     if msg_type == String:
         return String(data=data.decode("ascii"))
-    elif msg_type == Bool:
+    if msg_type == Bool:
         return Bool(data=bool(data[0]))
-    else:
-        return rclpy.serialization.deserialize_message(bytes(data), msg_type)
+    return rclpy.serialization.deserialize_message(bytes(data), msg_type)

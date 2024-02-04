@@ -141,9 +141,7 @@ class RelayNode(Node):
         self.get_logger().info(f"XBee modem status: {status.description}")
 
     def empty_callback(self, req, resp):
-        """
-        This is an empty callback method used to query the node readiness.
-        """
+        """This is an empty callback method used to query the node readiness."""
         self.get_logger().warn(f"Service {self.get_name()}/ready should not be called.")
         return resp
 
@@ -266,7 +264,6 @@ class RelayNode(Node):
         Raises:
             ValueError: If the ros_version parameter is not 'ros1' or 'ros2'.
         """
-
         if self.ros_version == "ros1":
             bridge = roslibpy.Topic(self.bridge_client, topic, msg_description)
         elif self.ros_version == "ros2":
@@ -481,6 +478,12 @@ class RelayNode(Node):
 
 
 def main(args=None):
+    """
+    Entry point of the xbee_bridge script.
+
+    Args:
+        args (list): Command-line arguments (default: None).
+    """
     rclpy.init(args=args)
 
     relay = RelayNode()
