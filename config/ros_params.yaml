@@ -1,0 +1,10 @@
+/**:
+  ros__parameters:
+    ros_version:              'ros2'                          # 'ros1' or 'ros2'
+    ros1_bridge_topics_file:  ''                              # Configuration file for ROS 1 parameter bridge
+    xbee_device_list_file:    'config/xbee_device_list.yaml'  # List of XBee devices in the network
+    incoming_message_prefix:  'intra_comms'                   # Topic prefix for incoming messages
+    monitoring_station_name:  'ground'                        # Name of the monitoring station
+    compression_level:        0                               # Level of compression for messages 
+                                                              # 0 (no_compression) - 9 (max_compression)
+    max_transmission_retries: 10                              # Maximum number of retries for message transmission

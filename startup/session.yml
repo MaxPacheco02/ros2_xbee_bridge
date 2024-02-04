@@ -1,0 +1,22 @@
+name: xbee_test
+root: ./
+startup_window: core
+pre_window: |
+  source_ws
+  source_ros2
+  export ROS_LOCALHOST_ONLY=1
+windows:
+  - xbee0:
+      layout: main-vertical
+      panes:
+        - export ROS_DOMAIN_ID=50; ros2 launch mbzirc_xbee_comms xbee_bridge.launch.py dev:=/dev/ttyUSB0 namespace:=xbee0
+        - |
+          export ROS_DOMAIN_ID=50; ros2 topic pub -r 0.5 /xbee1/hello_1 std_msgs/msg/String "data: 'Hello from XBee 0'"
+        - export ROS_DOMAIN_ID=50; ros2 topic echo /intra_comms/hello_0 std_msgs/msg/String
+  - xbee1:
+      layout: main-vertical
+      panes:
+        - export ROS_DOMAIN_ID=51; ros2 launch mbzirc_xbee_comms xbee_bridge.launch.py dev:=/dev/ttyUSB1 namespace:=xbee1
+        - |
+          export ROS_DOMAIN_ID=51; ros2 topic pub -r 0.5 /xbee0/hello_0 std_msgs/msg/String "data: 'Hello from XBee 1'"
+        - export ROS_DOMAIN_ID=51; ros2 topic echo /intra_comms/hello_1 std_msgs/msg/String
