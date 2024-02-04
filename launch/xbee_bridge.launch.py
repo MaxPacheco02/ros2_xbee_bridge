@@ -33,6 +33,7 @@ def generate_launch_description():
                 'stderr': 'screen',
             },
             parameters=[
+                {'config_dir': main_config_path},
                 {'dev': dev},
                 params
             ],

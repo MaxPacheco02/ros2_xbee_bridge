@@ -58,10 +58,13 @@ class RelayNode(Node):
             self.max_msg_size = 256
             
         # Load a list of devices in the network and create an object to manage them.
+        self.declare_parameter('config_dir', desriptor=ParameterDescriptor(type=Parameter.Type.STRING.value))
+        self.config_dir = self.get_parameter('config_dir').get_parameter_value().string_value
+        self.config_dir = pathlib.Path(self.config_dir)
         self.declare_parameter('xbee_device_list_file', 
                                descriptor=ParameterDescriptor(type=Parameter.Type.STRING.value))
         device_list_file = self.get_parameter('xbee_device_list_file').get_parameter_value().string_value
-        self.neighbors = XbeeNeigbors(self.ns, self.xbee, device_list_file)
+        self.neighbors = XbeeNeigbors(self.ns, self.xbee, self.config_dir / device_list_file)
         
         # Load remaining parameters.
         self.declare_parameter('incoming_message_prefix',
@@ -152,13 +155,12 @@ class RelayNode(Node):
         """
         self.declare_parameter('ros1_bridge_topics_file',
                                descriptor=ParameterDescriptor(type=Parameter.Type.STRING.value))
-        config_path = self.get_parameter('ros1_bridge_topics_file').get_parameter_value().string_value
-        if not config_path:
+        config_file = self.get_parameter('ros1_bridge_topics_file').get_parameter_value().string_value
+        if not config_file:
             return
         
         try:
-            config_file = pathlib.Path(config_path)
-            with open(config_file, 'r') as f:
+            with open(self.config_dir / config_file, 'r') as f:
                 bridge_topics = yaml.safe_load(f)
                 bridge_topics = bridge_topics['topics']
                 self.create_bridges(bridge_topics)
