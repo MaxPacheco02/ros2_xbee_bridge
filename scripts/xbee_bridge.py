@@ -58,7 +58,7 @@ class RelayNode(Node):
             self.max_msg_size = 256
             
         # Load a list of devices in the network and create an object to manage them.
-        self.declare_parameter('config_dir', desriptor=ParameterDescriptor(type=Parameter.Type.STRING.value))
+        self.declare_parameter('config_dir', descriptor=ParameterDescriptor(type=Parameter.Type.STRING.value))
         self.config_dir = self.get_parameter('config_dir').get_parameter_value().string_value
         self.config_dir = pathlib.Path(self.config_dir)
         self.declare_parameter('xbee_device_list_file', 
