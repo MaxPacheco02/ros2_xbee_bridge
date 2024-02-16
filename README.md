@@ -18,7 +18,7 @@ Any Digi XBee device that supports _DigiMesh_ wireless mesh networking topology 
 - Digi XBee SX 868 RF Modules
 - Digi XBee SX 900 RF Modules
 - Digi XBee-PRO 900HP RF Modules
-- Digi XBee XR 868 Modules
+- Digi XBee XR 868 Modules  
 The library was tested with SX 868 RF module for long-range intra-robot communication.
 
 
