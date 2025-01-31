@@ -1,5 +1,6 @@
 # List of lists in the following format:
 # ['robot_namespace', 'xbee_address', 'xbee_name']
 # For example:
-- ['xbee0', '0102030405060708', 'XBEE_0']
-- ['xbee1', '090A0B0C0D0E0F10', 'XBEE_1']
+- ['xbee0', '0013A20041CF8FE6', 'STATION_XBEE']
+- ['xbee1', '0013A20041CF8F96', 'BOAT_XBEE']
+
